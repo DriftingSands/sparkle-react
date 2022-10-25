@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
-
 const ArrowSvg = () => (
   <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
     <title>S ChevronDown 18 N</title>
@@ -17,7 +14,7 @@ export default function Header({ isAuthorVersion, host }) {
     <header className="header">
       <div className="content">
         <div className="left">
-          <Image src={"/wknd-logo-dk.svg"} alt="logo" height={36} width={"100%"} className="logo" />
+          <img src={"/wknd-logo-dk.svg"} alt="logo" height={36} width={"100%"} className="logo" />
         </div>
 
         <div className="middle">

@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 export default function Background({ backgroundProps, lazy, host }) {
   const { backgroundContent, isVideo, altText, color, zIndex, type } = backgroundProps;
 

@@ -1,6 +1,6 @@
 import Panel from "../components/Panel";
 import MobileHeader from "../components/MobileHeader";
-import Head from "next/head";
+import {Helmet} from "react-helmet";
 import { useState, useEffect, useContext } from "react";
 import { WindowSizeProvider } from "./ResizeProvider";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -40,7 +40,6 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
     }
 
     return () => window.removeEventListener("message", handleHashUpdateEvent);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // reset content on width change
@@ -106,10 +105,10 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
   return (
     data && (
       <div className={"page"} style={viewType === "mobile" ? { maxWidth: 840, margin: "0 auto" } : null}>
-        <Head>
+        <Helmet>
           <title>{data?.title || "Sparkle Demo"}</title>
           <meta name="description" content={data?.description?.plaintext} />
-        </Head>
+        </Helmet>
         {viewType === "mobile" && (
           <MobileHeader
             isAuthorVersion={isAuthorVersion}

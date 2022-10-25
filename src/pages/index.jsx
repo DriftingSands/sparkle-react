@@ -30,7 +30,6 @@ export default function Graphiql(props) {
     ];
     fetchAndSetData(hostConfig, setStates, fetchVariations);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return !desktopData && !mobileData ? (

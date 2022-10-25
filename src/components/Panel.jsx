@@ -34,7 +34,6 @@ export default function Panel({
     }
     createTimeline(panel?.animations?.timelineAnimations, panel?.animations?.timelineAnimationSettings, runOnEnd);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createTimeline, panel?.animations?.timelineAnimationSettings, panel?.animations?.timelineAnimations]); // adding runOnEnd makes into animations re-run on end
 
   useEffect(() => {

@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 export default function LayerImage({ data, panelNr, host }) {
   const { image, altText, layerId, id, overflow, basePosition, debug, fit, forceLoad } = data;
 

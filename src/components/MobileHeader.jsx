@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { scrollToId } from "./utils";
 import { useEffect, useState } from "react";
 
