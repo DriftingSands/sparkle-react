@@ -100,9 +100,9 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           className={`logo ${openMenu ? "menuOpen" : "menuClosed"}`}
         />
 
-        <a className="profileIconWrapper">
+        <span className="profileIconWrapper">
           <img className="menuProfileIcon" src={"/stacey-roswells.webp"} width={42} height={42} alt="profile picture" />
-        </a>
+        </span>
       </div>
 
       <nav className="headerNavigation">
@@ -110,6 +110,7 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           className={`navigationButton ${openNav ? "navOpen" : "navClosed"}`}
           id={"mobile-nav-button"}
           onClick={() => setOpenNav(!openNav)}
+          aria-label='Menu Button'
         >
           <span>{navLabel}</span>
           <DropdownIcon />
@@ -118,9 +119,9 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           <ul>
             {navItems.map((item, index) => {
               return (
-                <a onClick={() => onClickHandler(item.link)} key={index}>
+                <span onClick={() => onClickHandler(item.link)} key={index}>
                   <li> {item.text} </li>
-                </a>
+                </span>
               );
             })}
           </ul>

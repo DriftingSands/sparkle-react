@@ -25,7 +25,7 @@ export default function TextLayer({ data, activeMenuItem }) {
           {data?.column?.map((item, index) => {
             const MatchingComponent = (textItemLookup[item.type] || 'p')
             return (
-              <MatchingComponent key={index} className={`${item.type} ${item?.styles?.join(" ")}`} id={item.id}>
+              <MatchingComponent key={index} className={`${item.type} ${item?.styles?.join(" ")}`} id={item.id} aria-label={item.content?.plaintext}>
                 {item.content?.plaintext}
               </MatchingComponent>
             );
@@ -37,7 +37,7 @@ export default function TextLayer({ data, activeMenuItem }) {
         {data?.leftBox?.map((item, index) => {
           const MatchingComponent = (textItemLookup[item.type] || 'p')
           return (
-            <MatchingComponent key={index} className={`${item.type} ${item?.styles?.join(" ")}`} id={item.id}>
+            <MatchingComponent key={index} className={`${item.type} ${item?.styles?.join(" ")}`} id={item.id} aria-label={item.content?.plaintext}>
               {item.content?.plaintext}
             </MatchingComponent>
           );
@@ -54,6 +54,7 @@ export default function TextLayer({ data, activeMenuItem }) {
               key={index}
               className={`${item.type} ${item?.styles?.join(" ")}`}
               id={item.id}
+              aria-label={item.content?.plaintext}
             >
               {item.content?.plaintext}
             </MatchingComponent>
