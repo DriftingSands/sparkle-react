@@ -71,7 +71,7 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
     }
     // add hash to url without refreshing page
     window.history.replaceState(window.location.href.split("#")[0], null, link);
-    window.postMessage({type: 'hashUpdate', hash: link}, window.location.origin)
+    window.postMessage({ type: "hashUpdate", hash: link }, window.location.origin);
     setOpenNav(false);
   };
 
@@ -81,6 +81,8 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
         <button
           className={`menuButton ${openMenu ? "menuOpen" : "menuClosed"}`}
           id={"mobile-menu-button"}
+          aria-label="Menu Button"
+          aria-required="true"
           onClick={() => setOpenMenu(true)}
         >
           <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
@@ -110,7 +112,8 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           className={`navigationButton ${openNav ? "navOpen" : "navClosed"}`}
           id={"mobile-nav-button"}
           onClick={() => setOpenNav(!openNav)}
-          aria-label='Menu Button'
+          aria-label="Navigation Button"
+          aria-required="true"
         >
           <span>{navLabel}</span>
           <DropdownIcon />
