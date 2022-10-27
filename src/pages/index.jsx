@@ -19,10 +19,10 @@ export default function Graphiql(props) {
   useEffect(() => {
     const setStates = { setIsAuthorVersion, setFetchError, setCustomHost };
     const fetchVariations = [
-      {
-        variationName: "desktop",
-        setData: setDesktopData,
-      },
+      // {
+      //   variationName: "desktop",
+      //   setData: setDesktopData,
+      // },
       {
         variationName: "mobile",
         setData: setMobileData,
