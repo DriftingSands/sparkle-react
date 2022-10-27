@@ -22,7 +22,7 @@ const tryFetch = async (AEMHeadless, host, endpoint, variation, setState, isAuth
     // get data from AEM graphql call at endpoint, causes error if fetch fails
     const response = await AEMHeadless.runPersistedQuery(
       endpoint,
-      { variation: variation, timestamp: Date.now() },
+      { variation: variation, },
       { credentials: "include" }
     );
 
