@@ -96,6 +96,7 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           src={"/wknd-logo-dk.svg"}
           alt="logo"
           height={22}
+          width={60}
           className={`logo ${openMenu ? "menuOpen" : "menuClosed"}`}
         />
 
