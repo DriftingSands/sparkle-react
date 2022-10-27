@@ -114,13 +114,13 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           id={"mobile-nav-button"}
           onClick={() => setOpenNav(!openNav)}
           aria-label="Navigation Button"
-          aria-controls='navMenu'
+          aria-controls='navigationMenu'
           aria-aria-expanded={`${openNav ? 'true' : 'false'}`}
         >
           <span>{navLabel}</span>
           <DropdownIcon />
         </button>
-        <menu aria-labelledby='mobile-nav-button' id='navMenu' className={`navigationMenu ${openNav ? "open" : "closed"}`}>
+        <menu aria-labelledby='mobile-nav-button' id='navigationMenu' className={`navigationMenu ${openNav ? "open" : "closed"}`}>
           <ul>
             {navItems.map((item, index) => {
               return (
@@ -135,6 +135,7 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
 
       <menu
         id='mobileHeaderMenu'
+        aria-labelledby='mobile-menu-button'
         className={`headerMenu ${openMenu ? "open" : "closed"}`}
         style={{ maxWidth: maxWidth ? maxWidth * 0.6 : null }}
       >
