@@ -26,8 +26,9 @@ const tryFetch = async (AEMHeadless, host, endpoint, variation, setState, isAuth
       { credentials: "include" }
     );
 
-    setState(response.data.pageByPath.item);
-    return isAuthor ? "author" : true;
+    // setState(window.data.data.pageByPath.item);
+    // setState(response.data.pageByPath.item);
+    // return isAuthor ? "author" : true;
   } catch (error) {
     // returns false if the fetch fails, will try next host
     return false;

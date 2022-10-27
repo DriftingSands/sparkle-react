@@ -17,20 +17,27 @@ export default function Graphiql(props) {
   };
 
   useEffect(() => {
-    const setStates = { setIsAuthorVersion, setFetchError, setCustomHost };
-    const fetchVariations = [
-      // {
-      //   variationName: "desktop",
-      //   setData: setDesktopData,
-      // },
-      {
-        variationName: "mobile",
-        setData: setMobileData,
-      },
-    ];
-    fetchAndSetData(hostConfig, setStates, fetchVariations);
+    // const setStates = { setIsAuthorVersion, setFetchError, setCustomHost };
+    // const fetchVariations = [
+    //   // {
+    //   //   variationName: "desktop",
+    //   //   setData: setDesktopData,
+    //   // },
+    //   {
+    //     variationName: "mobile",
+    //     setData: setMobileData,
+    //   },
+    // ];
+    // fetchAndSetData(hostConfig, setStates, fetchVariations);
+    setMobileData(window.data.data.pageByPath.item)
+    setDesktopData(window.data.data.pageByPath.item)
+    setCustomHost('https://author-p81252-e700817.adobeaemcloud.com/')
 
   }, []);
+
+  useEffect(() => {
+    console.log(mobileData)
+  })
 
   return !desktopData && !mobileData ? (
     fetchError ? (
