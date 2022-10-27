@@ -120,10 +120,11 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
         )}
         {data?.panels?.map &&
           data.panels.map((panel, index) => {
-            if (viewType === "desktop" && index > 0 && !loadRest) {
-              document.body.style.overflowY = "scroll";
-              return null;
-            }
+            // if (viewType === "desktop" && index > 0 && !loadRest) {
+            //   document.body.style.overflowY = "scroll";
+            //   return null;
+            // }
+            if (index !== 0 ) return
             return (
               <Panel
                 panel={panel}
