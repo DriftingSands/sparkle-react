@@ -82,7 +82,8 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           className={`menuButton ${openMenu ? "menuOpen" : "menuClosed"}`}
           id={"mobile-menu-button"}
           aria-label="Menu Button"
-          aria-required="true"
+          aria-controls='mobileHeaderMenu'
+          aria-expanded={`${openMenu ? 'true': 'false'}`}
           onClick={() => setOpenMenu(true)}
         >
           <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18" width="18">
@@ -113,12 +114,13 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           id={"mobile-nav-button"}
           onClick={() => setOpenNav(!openNav)}
           aria-label="Navigation Button"
-          aria-required="true"
+          aria-controls='navMenu'
+          aria-aria-expanded={`${openNav ? 'true' : 'false'}`}
         >
           <span>{navLabel}</span>
           <DropdownIcon />
         </button>
-        <menu className={`navigationMenu ${openNav ? "open" : "closed"}`}>
+        <menu aria-labelledby='mobile-nav-button' id='navMenu' className={`navigationMenu ${openNav ? "open" : "closed"}`}>
           <ul>
             {navItems.map((item, index) => {
               return (
@@ -132,6 +134,7 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
       </nav>
 
       <menu
+        id='mobileHeaderMenu'
         className={`headerMenu ${openMenu ? "open" : "closed"}`}
         style={{ maxWidth: maxWidth ? maxWidth * 0.6 : null }}
       >
