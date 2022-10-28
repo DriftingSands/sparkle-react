@@ -39,6 +39,10 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
       setForceView(forceViewQuery);
     }
 
+    setTimeout(() => {
+      setLoadRest(true)
+    }, 5000);
+
     return () => window.removeEventListener("message", handleHashUpdateEvent);
   }, []);
 
@@ -124,14 +128,14 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
             //   document.body.style.overflowY = "scroll";
             //   return null;
             // }
-            if (index !== 0 ) return
+            if (index !== 0 && !loadRest) {return}
             return (
               <Panel
                 panel={panel}
                 panelNr={index}
                 settings={{ viewType }}
                 key={index}
-                runOnEnd={index === 0 ? handleEndOfIntroAnimation : null}
+                // runOnEnd={index === 0 ? handleEndOfIntroAnimation : null}
                 isAuthorVersion={isAuthorVersion}
                 host={host}
                 hash={hash}
