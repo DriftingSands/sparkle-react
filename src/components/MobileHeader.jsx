@@ -115,7 +115,7 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
           onClick={() => setOpenNav(!openNav)}
           aria-label="Navigation Button"
           aria-controls='navigationMenu'
-          aria-aria-expanded={`${openNav ? 'true' : 'false'}`}
+          aria-expanded={`${openNav ? 'true' : 'false'}`}
         >
           <span>{navLabel}</span>
           <DropdownIcon />
