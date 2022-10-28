@@ -1,5 +1,6 @@
 export default function Background({ backgroundProps, lazy, host, viewType }) {
   const { backgroundContent, isVideo, altText, color, zIndex, type } = backgroundProps;
+  console.log("\x1b[31m ~ backgroundContent", backgroundProps)
 
 
   const typeLookup = {
@@ -12,7 +13,7 @@ export default function Background({ backgroundProps, lazy, host, viewType }) {
   return (
     <div className={`backgroundWrapper ${isVideo ? "isVideo" : ""}`} style={{ backgroundColor: color, zIndex }}>
       {backgroundContent?.type === "image" && (
-        <img src={source} alt={altText} className="backgroundImage" loading={lazy ? "lazy" : "eager"} />
+        <img src={source} alt={altText || 'panel background'} className="backgroundImage" loading={lazy ? "lazy" : "eager"} />
       )}
       {backgroundContent?.format?.includes("video/") && (
         <video className="videoWrapper" autoPlay loop muted>

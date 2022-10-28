@@ -24,7 +24,7 @@ export default function LayerImage({ data, panelNr, host, viewType }) {
           width={image?.width}
           height={image?.height}
           src={source}
-          alt={altText?.plaintext}
+          alt={altText?.plaintext || 'panel image'}
         />
       </div>
     </div>
