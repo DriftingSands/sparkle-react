@@ -29,8 +29,8 @@ export default function Graphiql(props) {
     //   },
     // ];
     // fetchAndSetData(hostConfig, setStates, fetchVariations);
-    setMobileData(window.data.data.pageByPath.item)
-    setDesktopData(window.data.data.pageByPath.item)
+    setMobileData(window.mobileData.data.pageByPath.item)
+    setDesktopData(window.desktopData.data.pageByPath.item)
     setCustomHost('https://publish-p54353-e836181.adobeaemcloud.com/')
 
   }, []);
