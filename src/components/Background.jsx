@@ -1,10 +1,12 @@
 export default function Background({ backgroundProps, lazy, host, viewType }) {
-  const { backgroundContent, isVideo, altText, color, zIndex, type } = backgroundProps;
+  const { backgroundContent, altText, color, zIndex, type } = backgroundProps;
 
   const typeLookup = {
     mobile: 'mobile-vertical.webp',
     desktop: 'desktop.webp'
   }
+
+  const isVideo = backgroundContent?.format?.includes("video/")
   
   let source = host
   if (backgroundContent?._path?.startsWith('/')) {
@@ -21,7 +23,7 @@ export default function Background({ backgroundProps, lazy, host, viewType }) {
       {backgroundContent?.type === "image" && (
         <img src={source} alt={altText || 'panel background'} className="backgroundImage" loading={lazy ? "lazy" : "eager"} />
       )}
-      {backgroundContent?.format?.includes("video/") && (
+      {isVideo && (
         <video className="videoWrapper" autoPlay loop muted>
           <source src={source} />
         </video>
