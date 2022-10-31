@@ -6,7 +6,15 @@ export default function Background({ backgroundProps, lazy, host, viewType }) {
     desktop: 'desktop.webp'
   }
   
-  const source = `${host}${backgroundContent?._path?.startsWith('/') ? backgroundContent?._path?.substring(1) : backgroundContent?._path}/_jcr_content/renditions/${typeLookup[viewType] || 'desktop.webp'}`;
+  let source = host
+  if (backgroundContent?._path?.startsWith('/')) {
+    source = source + backgroundContent?._path?.substring(1)
+  } else {
+    source = source + backgroundContent?._path
+  }
+  if (!isVideo) {
+    source = source + `/_jcr_content/renditions/${typeLookup[viewType] || 'desktop.webp'}`
+  }
 
   return (
     <div className={`backgroundWrapper ${isVideo ? "isVideo" : ""}`} style={{ backgroundColor: color, zIndex }}>
