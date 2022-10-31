@@ -1,7 +1,5 @@
 export default function Background({ backgroundProps, lazy, host, viewType }) {
   const { backgroundContent, isVideo, altText, color, zIndex, type } = backgroundProps;
-  console.log("\x1b[31m ~ backgroundContent", backgroundProps)
-
 
   const typeLookup = {
     mobile: 'mobile-vertical.webp',

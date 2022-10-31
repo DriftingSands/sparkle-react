@@ -9,6 +9,7 @@ export default function Graphiql(props) {
   const [isAuthorVersion, setIsAuthorVersion] = useState(false);
   const [fetchError, setFetchError] = useState(null);
   const [customHost, setCustomHost] = useState("");
+  const [retries, setRetries] = useState(0)
 
   const hostConfig = {
     authorHost: "https://author-p81252-e700817.adobeaemcloud.com",
@@ -29,15 +30,22 @@ export default function Graphiql(props) {
     //   },
     // ];
     // fetchAndSetData(hostConfig, setStates, fetchVariations);
-    setMobileData(window.mobileData.data.pageByPath.item)
-    setDesktopData(window.desktopData.data.pageByPath.item)
-    setCustomHost('https://publish-p54353-e836181.adobeaemcloud.com/')
+    window?.mobileData?.data?.pageByPath?.item && setMobileData(window.mobileData.data.pageByPath.item)
+    window?.desktopData?.data?.pageByPath?.item && setDesktopData(window.desktopData.data.pageByPath.item)
+    setCustomHost(window.customHost)
 
-  }, []);
+  }, [customHost]);
 
-  useEffect(() => {
-    console.log(mobileData)
-  })
+  // useEffect(() => {
+  //   if (retries > 5 || customHost) {return}
+  //   setTimeout(() => {
+  //     if (customHost) {return}
+  //     console.log('in timeout')
+  //     setCustomHost(window.customHost)
+  //     setRetries(retries + 1)
+  //   }, 1000);
+  // }, [])
+
 
   return !desktopData && !mobileData ? (
     fetchError ? (

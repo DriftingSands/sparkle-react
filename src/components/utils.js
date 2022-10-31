@@ -1,4 +1,4 @@
-import AEMHeadless from '@adobe/aem-headless-client-js';
+// import AEMHeadless from '@adobe/aem-headless-client-js';
 
 export const scrollToId = id => {
   if (!id.startsWith("#")) {
