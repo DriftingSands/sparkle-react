@@ -36,6 +36,7 @@
       fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint};variation=${variation}`, {credentials: 'include'})
       .then((response) => response.json())
       .then((data) => {
+        if (window[variation+'Data']) {return}
         window[variation+'Data'] = data
         window.customHost = fetchConfig.authorUrl
         window.postMessage({type: 'dataUpdate', variation: variation+'Data'}, window.location.href)
@@ -45,6 +46,7 @@
         fetch(`${fetchConfig.publishUrl}${fetchConfig.endpoint};variation=${variation}`)
         .then((response) => response.json())
         .then((data) => {
+          if (window[variation+'Data']) {return}
           window[variation+'Data'] = data
           window.customHost = fetchConfig.publishUrl
           window.postMessage({type: 'dataUpdate', variation: variation+'Data'}, window.location.href)
