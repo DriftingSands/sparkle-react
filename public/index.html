@@ -13,52 +13,65 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link rel="preconnect" href="https://publish-p54353-e836181.adobeaemcloud.com" >
       <link rel="preconnect" href="https://author-p54353-e836181.adobeaemcloud.com" > -->
-      
-    <link rel="DNS-prefetch" href="https://use.typekit.net">
+
+    <!-- <link rel="DNS-prefetch" href="https://use.typekit.net">
     <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-    <link rel="stylesheet" href="https://use.typekit.net/sev7aot.css" />
-    <!-- use: source-serif-pro, source-sans-pro & bebas-neue instead of current names in scss -->
+    <link rel="stylesheet" href="https://use.typekit.net/sev7aot.css" /> -->
 
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <!-- <link as="style" rel="preload" href="./fonts.css" > -->
     <link rel="stylesheet" type="text/css" href="./fonts.css" />
 
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" >
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" >
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" > -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" />
 
-    <link fetchpriority="high" rel="preload" href="https://author-p81252-e700817.adobeaemcloud.com/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp" id="preload-biker" as="image" type="image/webp" >
+    <link
+      fetchpriority="high"
+      rel="preload"
+      href="https://author-p81252-e700817.adobeaemcloud.com/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
+      id="preload-biker"
+      as="image"
+      type="image/webp"
+    />
 
     <script>
       function attemptFetch(fetchConfig, variation) {
         if (window[variation + "Data"]) {
-          console.log("\x1b[31m ~ window", window[variation + "Data"]);
           return;
         }
-        fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint};variation=${variation}`, { credentials: "include" })
-          .then(response => response.json())
-          .then(data => {
-            setTimeout(() => {
-              window[variation + "Data"] = data;
-              window.customHost = fetchConfig.authorUrl;
-              window.postMessage({ type: "dataUpdate", variation: variation + "Data" }, window.location.href);
-            }, 1);
-          })
-          .catch(error => {
-            console.log("Author fetch failed, attempting published version");
-            fetch(`${fetchConfig.publishUrl}${fetchConfig.endpoint};variation=${variation}`)
-              .then(response => response.json())
-              .then(data => {
-                setTimeout(() => {
-                  window[variation + "Data"] = data;
-                  window.customHost = fetchConfig.authorUrl;
-                  window.postMessage({ type: "dataUpdate", variation: variation + "Data" }, window.location.href);
-                }, 1);
-              })
-              .catch(error => {
-                console.log("Publish url also failed.");
-              });
-          });
+        window[variation + "Data"] = new Promise((resolve, reject) => {
+          fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint};variation=${variation}`, { credentials: "include" })
+            .then(response => response.json())
+            .then(data => {
+              setTimeout(() => {
+                window.customHost = fetchConfig.authorUrl;
+                window.isAuthorHost = true;
+                resolve(data);
+              }, 1);
+            })
+            .catch(error => {
+              console.log("Author fetch failed, attempting published version");
+              fetch(`${fetchConfig.publishUrl}${fetchConfig.endpoint};variation=${variation}`)
+                .then(response => response.json())
+                .then(data => {
+                  setTimeout(() => {
+                    window.customHost = fetchConfig.authorUrl;
+                    resolve(data);
+                  }, 1);
+                })
+                .catch(error => {
+                  console.log("Publish url also failed.");
+                  reject(error)
+                });
+            });
+        })
       }
       const fetchConfig = {
         authorUrl: "https://author-p81252-e700817.adobeaemcloud.com/",
