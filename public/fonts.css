@@ -1,9 +1,11 @@
 @font-face {
   font-family: "Adobe Clean";
   src: url("./AdobeClean-Regular.otf");
+  font-display: swap;
 }
 
 @font-face {
   font-family: Asar;
+  font-display: swap;
   src: url("./Asar-Regular.ttf");
 }
