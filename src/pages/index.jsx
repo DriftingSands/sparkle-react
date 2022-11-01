@@ -31,22 +31,41 @@ export default function Graphiql(props) {
     // ];
     // fetchAndSetData(hostConfig, setStates, fetchVariations);
     function setWindowData(msg) {
+
+      console.log("\x1b[31m ~ msg", msg.data)
       if (
         msg.data.type !== 'dataUpdate' ||
-        !window?.mobileData?.data?.pageByPath?.item ||
-        !window?.desktopData?.data?.pageByPath?.item
+        !window.mobileData ||
+        !window.desktopData
         ) {
           return
         }
+        console.log("\x1b[31m ~ customHost")
       setCustomHost(window.customHost)
       setMobileData(window.mobileData.data.pageByPath.item)
       setDesktopData(window.desktopData.data.pageByPath.item)
     }
-
-    window.addEventListener('message', setWindowData)
+    
+    if (window.mobileData && window.desktopData) {
+      setMobileData(window.mobileData.data.pageByPath.item)
+      setDesktopData(window.desktopData.data.pageByPath.item)
+    } else {
+      window.addEventListener('message', setWindowData)
+    }
 
     return () => window.removeEventListener('message', setWindowData)
-  }, [customHost]);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("\x1b[31m ~ useEffect", mobileData, desktopData)
+  //   if (!window.mobileData) {
+  //     setMobileData(window.mobileData.data.pageByPath.item)
+  //   }
+  //   if (!window.desktopData) {
+  //     setDesktopData(window.desktopData.data.pageByPath.item)
+  //   }
+  //   setCustomHost(window.customHost)
+  // }, [window.mobileData, window.desktopData])
 
   // useEffect(() => {
   //   if (retries > 5 || customHost) {return}

@@ -33,27 +33,33 @@
 
   <script>
     function attemptFetch (fetchConfig, variation) {
+      if (window[variation+'Data']) {
+        console.log("\x1b[31m ~ window", window[variation+'Data'])
+        return
+      }
       fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint};variation=${variation}`, {credentials: 'include'})
       .then((response) => response.json())
       .then((data) => {
-        if (window[variation+'Data']) {return}
-        window[variation+'Data'] = data
-        window.customHost = fetchConfig.authorUrl
-        window.postMessage({type: 'dataUpdate', variation: variation+'Data'}, window.location.href)
+        setTimeout(() => {
+          window[variation+'Data'] = data
+          window.customHost = fetchConfig.authorUrl
+          window.postMessage({type: 'dataUpdate', variation: variation+'Data'}, window.location.href)
+        }, 1);
       })
       .catch((error) => {
         console.log('Author fetch failed, attempting published version')
         fetch(`${fetchConfig.publishUrl}${fetchConfig.endpoint};variation=${variation}`)
         .then((response) => response.json())
         .then((data) => {
-          if (window[variation+'Data']) {return}
-          window[variation+'Data'] = data
-          window.customHost = fetchConfig.publishUrl
-          window.postMessage({type: 'dataUpdate', variation: variation+'Data'}, window.location.href)
-          })
-          .catch((error) => {
-            console.log('Publish url also failed.')
-          })
+          setTimeout(() => {
+            window[variation+'Data'] = data
+            window.customHost = fetchConfig.authorUrl
+            window.postMessage({type: 'dataUpdate', variation: variation+'Data'}, window.location.href)
+          }, 1);
+        })
+        .catch((error) => {
+          console.log('Publish url also failed.')
+        })
       })
     }
     const fetchConfig = {
