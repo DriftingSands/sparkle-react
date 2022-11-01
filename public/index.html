@@ -38,6 +38,7 @@
       .then((data) => {
         window[variation+'Data'] = data
         window.customHost = fetchConfig.authorUrl
+        window.postMessage({type: 'dataUpdate', variation: variation+'Data'}, window.location.href)
       })
       .catch((error) => {
         console.log('Author fetch failed, attempting published version')
@@ -46,6 +47,7 @@
         .then((data) => {
           window[variation+'Data'] = data
           window.customHost = fetchConfig.publishUrl
+          window.postMessage({type: 'dataUpdate', variation: variation+'Data'}, window.location.href)
           })
           .catch((error) => {
             console.log('Publish url also failed.')

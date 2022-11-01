@@ -30,21 +30,33 @@ export default function Graphiql(props) {
     //   },
     // ];
     // fetchAndSetData(hostConfig, setStates, fetchVariations);
-    window?.mobileData?.data?.pageByPath?.item && setMobileData(window.mobileData.data.pageByPath.item)
-    window?.desktopData?.data?.pageByPath?.item && setDesktopData(window.desktopData.data.pageByPath.item)
-    // setCustomHost(window.customHost)
+    function setWindowData(msg) {
+      if (
+        msg.data.type !== 'dataUpdate' ||
+        !window?.mobileData?.data?.pageByPath?.item ||
+        !window?.desktopData?.data?.pageByPath?.item
+        ) {
+          return
+        }
+      setCustomHost(window.customHost)
+      setMobileData(window.mobileData.data.pageByPath.item)
+      setDesktopData(window.desktopData.data.pageByPath.item)
+    }
 
+    window.addEventListener('message', setWindowData)
+
+    return () => window.removeEventListener('message', setWindowData)
   }, [customHost]);
 
-  useEffect(() => {
-    if (retries > 5 || customHost) {return}
-    setTimeout(() => {
-      if (customHost) {return}
-      // console.log('in timeout')
-      setCustomHost(window.customHost)
-      setRetries(retries + 1)
-    }, 1000);
-  }, [retries])
+  // useEffect(() => {
+  //   if (retries > 5 || customHost) {return}
+  //   setTimeout(() => {
+  //     if (customHost) {return}
+  //     // console.log('in timeout')
+  //     setCustomHost(window.customHost)
+  //     setRetries(retries + 1)
+  //   }, 1000);
+  // }, [retries])
 
 
   return !desktopData && !mobileData ? (
