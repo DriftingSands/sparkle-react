@@ -1,8 +1,9 @@
 @font-face {
   font-family: "Adobe Clean";
-  src: url("./public/AdobeClean-Regular.otf");
+  src: url("./AdobeClean-Regular.otf");
 }
+
 @font-face {
-  font-family: "Asar";
-  src: url("./public/Asar-Regular.woff");
+  font-family: Asar;
+  src: url("./Asar-Regular.ttf");
 }
