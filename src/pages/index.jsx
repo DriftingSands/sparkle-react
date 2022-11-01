@@ -49,6 +49,7 @@ export default function Graphiql(props) {
     if (window.mobileData && window.desktopData) {
       setMobileData(window.mobileData.data.pageByPath.item)
       setDesktopData(window.desktopData.data.pageByPath.item)
+      setCustomHost(window.customHost)
     } else {
       window.addEventListener('message', setWindowData)
     }
