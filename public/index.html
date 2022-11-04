@@ -8,21 +8,25 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="DNS-prefetch" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <!-- <link rel="preconnect" href="https://publish-p54353-e836181.adobeaemcloud.com" > -->
-      <link rel="preconnect" href="https://author-p81252-e700817.adobeaemcloud.com/" >
+    <link rel="DNS-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- <link rel="preconnect" href="https://publish-p54353-e836181.adobeaemcloud.com" > -->
+    <link rel="preconnect" href="https://author-p81252-e700817.adobeaemcloud.com/" />
 
-    <!-- <link rel="DNS-prefetch" href="https://use.typekit.net">
-    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-    <link rel="stylesheet" href="https://use.typekit.net/sev7aot.css" /> -->
+    <link rel="DNS-prefetch" href="https://use.typekit.net" />
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+    <link rel="stylesheet" href="https://use.typekit.net/sev7aot.css" />
 
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <!-- <link as="style" rel="preload" href="./fonts.css" > -->
+
+    <link rel="preload" href="./Asar-Regular.ttf" as="font" type="font/woff2" crossorigin />
+    <!-- Only preloading Asar as adobe clean is not used on 1st scene
+      <link rel="preload" href="./Asar-Regular.ttf" as="font" type="font/woff2" crossorigin /> -->
     <link rel="stylesheet" type="text/css" href="./fonts.css" />
 
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap"
     />
@@ -30,7 +34,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap"
     />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" /> -->
 
     <link
       fetchpriority="high"
@@ -68,10 +72,10 @@
                 })
                 .catch(error => {
                   console.log("Publish url also failed.");
-                  reject(error)
+                  reject(error);
                 });
             });
-        })
+        });
       }
       const fetchConfig = {
         authorUrl: "https://author-p81252-e700817.adobeaemcloud.com/",
