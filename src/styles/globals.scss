@@ -5,12 +5,31 @@
 @import './textLayers.scss';
 @import './imageLayers.scss';
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+Pro:wght@400;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+Pro:wght@400;600;700&display=swap');
 
 @font-face {
   font-family: "Adobe Clean";
-  src: url("../../public/AdobeClean-Regular.otf");
+  src: url("../../public/fonts/AdobeClean-Regular.otf");
   font-display: swap;
+}
+
+@font-face {
+  font-family: Source Serif Pro;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../../public/fonts/SourceSerifPro-Bold.woff2");
+}
+@font-face {
+  font-family: Source Serif Pro;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../../public/fonts/SourceSerifPro-Regular.woff2");
+}
+@font-face {
+  font-family: Source Serif Pro;
+  font-display: swap;
+  font-weight: 600;
+  src: url("../../public/fonts/SourceSerifPro-SemiBold.woff2");
 }
 // body {
 //   background: url('https://author-p81252-e700817.adobeaemcloud.com//content/dam/sample-wknd-app/en/image-files/sky_m.jpg');

@@ -8,9 +8,9 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="DNS-prefetch" href="https://fonts.googleapis.com" />
+    <!-- <link rel="DNS-prefetch" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
     <!-- <link rel="preconnect" href="https://publish-p54353-e836181.adobeaemcloud.com" > -->
     <link rel="preconnect" href="https://sparkle-data.vercel.app/" />
     <!-- <link rel="preconnect" href="https://author-p81252-e700817.adobeaemcloud.com/" /> -->
@@ -19,16 +19,37 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <!-- <link as="style" rel="preload" href="./fonts.css" > -->
 
-    <link rel="preload" href="./Asar-Regular.ttf" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/Asar-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="./fonts/SourceSansPro-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/SourceSansPro-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/SourceSansPro-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
     <style type="text/css" >
       @font-face {
         font-family: Asar;
         font-display: swap;
-        src: url("./Asar-Regular.ttf");
+        src: url("./fonts/Asar-Regular.ttf");
+      }
+      @font-face {
+        font-family: Source Sans Pro;
+        font-display: swap;
+        font-weight: 700;
+        src: url("./fonts/SourceSansPro-Bold.woff2");
+      }
+      @font-face {
+        font-family: Source Sans Pro;
+        font-display: swap;
+        font-weight: 400;
+        src: url("./fonts/SourceSansPro-Regular.woff2");
+      }
+      @font-face {
+        font-family: Source Sans Pro;
+        font-display: swap;
+        font-weight: 600;
+        src: url("./fonts/SourceSansPro-SemiBold.woff2");
       }
     </style>
 
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet"> -->
 
     <!-- <link
       fetchpriority="high"
