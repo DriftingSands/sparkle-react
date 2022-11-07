@@ -12,7 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- <link rel="preconnect" href="https://publish-p54353-e836181.adobeaemcloud.com" > -->
-    <link rel="preconnect" href="https://author-p81252-e700817.adobeaemcloud.com/" />
+    <link rel="preconnect" href="https://sparkle-data.vercel.app/" />
+    <!-- <link rel="preconnect" href="https://author-p81252-e700817.adobeaemcloud.com/" /> -->
 
     <link rel="DNS-prefetch" href="https://use.typekit.net" />
     <link rel="preconnect" href="https://use.typekit.net" crossorigin />
@@ -36,10 +37,18 @@
     />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" /> -->
 
-    <link
+    <!-- <link
       fetchpriority="high"
       rel="preload"
       href="https://author-p81252-e700817.adobeaemcloud.com/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
+      id="preload-biker"
+      as="image"
+      type="image/webp"
+    /> -->
+    <link
+      fetchpriority="high"
+      rel="preload"
+      href="https://sparkle-data.vercel.app/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
       id="preload-biker"
       as="image"
       type="image/webp"
@@ -51,24 +60,24 @@
           return;
         }
         window[variation + "Data"] = new Promise((resolve, reject) => {
-          fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint};variation=${variation}`, { credentials: "include" })
-            .then(response => response.json())
+          // fetch for vercel data source
+          fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint}/${variation}.json`)
+          // fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint};variation=${variation}`, { credentials: "include" })
+            .then(response => {
+              return response.json()
+            })
             .then(data => {
-              setTimeout(() => {
-                window.customHost = fetchConfig.authorUrl;
-                window.isAuthorHost = true;
-                resolve(data);
-              }, 1);
+              window.customHost = fetchConfig.authorUrl;
+              window.isAuthorHost = true;
+              resolve(data);
             })
             .catch(error => {
               console.log("Author fetch failed, attempting published version");
               fetch(`${fetchConfig.publishUrl}${fetchConfig.endpoint};variation=${variation}`)
                 .then(response => response.json())
                 .then(data => {
-                  setTimeout(() => {
                     window.customHost = fetchConfig.authorUrl;
                     resolve(data);
-                  }, 1);
                 })
                 .catch(error => {
                   console.log("Publish url also failed.");
@@ -78,7 +87,7 @@
         });
       }
       const fetchConfig = {
-        authorUrl: "https://author-p81252-e700817.adobeaemcloud.com/",
+        authorUrl: "https://sparkle-data.vercel.app/",
         endpoint: "graphql/execute.json/sample-wknd-app/homepage",
         publishUrl: "https://publish-p54353-e836181.adobeaemcloud.com/",
       };
