@@ -45,7 +45,7 @@
     <!-- <link
       fetchpriority="high"
       rel="preload"
-      href="https://author-p81252-e700817.adobeaemcloud.com/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
+      href="https://https://author-p54352-e845472.adobeaemcloud.com/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
       id="preload-biker"
       as="image"
       type="image/webp"
@@ -128,11 +128,11 @@
         fetchConfig.endpoint = endpoint;
       }
 
-      attemptFetch(fetchConfig, "desktop");
-      attemptFetch(fetchConfig, "mobile");
+      // attemptFetch(fetchConfig, "desktop");
+      // attemptFetch(fetchConfig, "mobile");
 
-      // attemptFetch({ ...fetchConfig, authorUrl: fetchConfig.sparkle }, "desktop", true);
-      // attemptFetch({ ...fetchConfig, authorUrl: fetchConfig.sparkle }, "mobile", true);
+      attemptFetch({ ...fetchConfig, authorUrl: fetchConfig.sparkle }, "desktop", true);
+      attemptFetch({ ...fetchConfig, authorUrl: fetchConfig.sparkle }, "mobile", true);
     </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
