@@ -17,14 +17,14 @@
 
     <link rel="DNS-prefetch" href="https://use.typekit.net" />
     <link rel="preconnect" href="https://use.typekit.net" crossorigin />
-    <link rel="stylesheet" href="https://use.typekit.net/bud6jdy.css">
+    <link rel="stylesheet" href="https://use.typekit.net/bud6jdy.css" />
     <!-- other fonts <link rel="stylesheet" href="https://use.typekit.net/sev7aot.css" /> -->
 
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <!-- <link as="style" rel="preload" href="./fonts.css" > -->
 
     <link rel="preload" href="./Asar-Regular.ttf" as="font" type="font/woff2" crossorigin />
-    <style type="text/css" >
+    <style type="text/css">
       @font-face {
         font-family: Asar;
         font-display: swap;
@@ -60,16 +60,19 @@
     />
 
     <script>
-      function attemptFetch(fetchConfig, variation) {
+      function attemptFetch(fetchConfig, variation, sparkleFetch = false) {
         if (window[variation + "Data"]) {
           return;
         }
         window[variation + "Data"] = new Promise((resolve, reject) => {
-          // fetch for vercel data source
-          fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint}/${variation}.json`)
-          // fetch(`${fetchConfig.authorUrl}${fetchConfig.endpoint};variation=${variation}`, { credentials: "include" })
+          fetch(
+            `${fetchConfig.authorUrl}/${fetchConfig.endpoint}${
+              sparkleFetch ? `/${variation}.json` : `;variation=${variation}`
+            }`,
+            !sparkleFetch ? { credentials: "include" } : null
+          )
             .then(response => {
-              return response.json()
+              return response.json();
             })
             .then(data => {
               window.customHost = fetchConfig.authorUrl;
@@ -78,27 +81,58 @@
             })
             .catch(error => {
               console.log("Author fetch failed, attempting published version");
-              fetch(`${fetchConfig.publishUrl}${fetchConfig.endpoint};variation=${variation}`)
+              fetch(`${fetchConfig.publishUrl}/${fetchConfig.endpoint};variation=${variation}`)
                 .then(response => response.json())
                 .then(data => {
-                    window.customHost = fetchConfig.authorUrl;
-                    resolve(data);
+                  window.customHost = fetchConfig.authorUrl;
+                  resolve(data);
                 })
                 .catch(error => {
                   console.log("Publish url also failed.");
-                  reject(error);
+                  resolve(null);
                 });
             });
         });
       }
       const fetchConfig = {
-        authorUrl: "https://sparkle-data.vercel.app/",
+        sparkle: "https://sparkle-data.vercel.app",
+        authorUrl: "https://author-p54352-e845472.adobeaemcloud.com",
         endpoint: "graphql/execute.json/sample-wknd-app/homepage",
-        publishUrl: "https://publish-p54353-e836181.adobeaemcloud.com/",
+        publishUrl: "https://publish-p54352-e845472.adobeaemcloud.com",
       };
+
+      const searchParams = new URLSearchParams(window.location.search);
+
+      const author = searchParams.get("authorHost");
+      if (author) {
+        const authorUrl = new URL(author);
+        fetchConfig.authorUrl = `${authorUrl.protocol}//${authorUrl.host}${authorUrl.port ? ":" + authorUrl.port : ""}`;
+      }
+
+      const publish = searchParams.get("publishHost");
+      if (publish) {
+        const publishUrl = new URL(publish);
+        fetchConfig.publishUrl = `${publishUrl.protocol}//${publishUrl.host}${
+          publishUrl.port ? ":" + publishUrl.port : ""
+        }`;
+      }
+
+      let endpoint = searchParams.get("endpoint");
+      if (endpoint) {
+        if (endpoint.startsWith("/")) {
+          endpoint = endpoint.slice(1);
+        }
+        if (endpoint.endsWith("/")) {
+          endpoint = endpoint.slice(0, -1);
+        }
+        fetchConfig.endpoint = endpoint;
+      }
 
       attemptFetch(fetchConfig, "desktop");
       attemptFetch(fetchConfig, "mobile");
+
+      // attemptFetch({ ...fetchConfig, authorUrl: fetchConfig.sparkle }, "desktop", true);
+      // attemptFetch({ ...fetchConfig, authorUrl: fetchConfig.sparkle }, "mobile", true);
     </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.

@@ -30,11 +30,19 @@ export default function Graphiql(props) {
     // ];
     // fetchAndSetData(hostConfig, setStates, fetchVariations);
     window.mobileData.then((data) => {
+      if (!data) {
+        setFetchError({type: 'publish', host: window.customHost})
+        return
+      }
       setMobileData(data.data.pageByPath.item);
       setCustomHost(window.customHost);
       setIsAuthorVersion(window.isAuthorHost)
     })
     window.desktopData.then((data) => {
+      if (!data) {
+        setFetchError({type: 'publish', host: window.customHost})
+        return
+      }
       setDesktopData(data.data.pageByPath.item);
       setCustomHost(window.customHost);
       setIsAuthorVersion(window.isAuthorHost)

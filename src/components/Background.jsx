@@ -8,7 +8,7 @@ export default function Background({ backgroundProps, lazy, host, viewType }) {
 
   const isVideo = backgroundContent?.format?.includes("video/")
   
-  let source = host
+  let source = host+'/'
   if (backgroundContent?._path?.startsWith('/')) {
     source = source + backgroundContent?._path?.substring(1)
   } else {
