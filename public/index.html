@@ -11,9 +11,9 @@
     <!-- <link rel="DNS-prefetch" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
-    <!-- <link rel="preconnect" href="https://publish-p54353-e836181.adobeaemcloud.com" > -->
-    <link rel="preconnect" href="https://sparkle-data.vercel.app/" />
-    <!-- <link rel="preconnect" href="https://author-p81252-e700817.adobeaemcloud.com/" /> -->
+    <!-- <link rel="preconnect" href="https://sparkle-data.vercel.app/" /> -->
+    <link rel="preconnect" href="https://author-p54352-e845472.adobeaemcloud.com" />
+    <link rel="preconnect" href="https://publish-p54352-e845472.adobeaemcloud.com" />
 
     <link rel="DNS-prefetch" href="https://use.typekit.net" />
     <link rel="preconnect" href="https://use.typekit.net" crossorigin />
@@ -42,29 +42,49 @@
     />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" /> -->
 
-    <!-- <link
+    <link
       fetchpriority="high"
       rel="preload"
-      href="https://author-p81252-e700817.adobeaemcloud.com/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
+      href="https://author-p54352-e845472.adobeaemcloud.com/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
       id="preload-biker"
       as="image"
       type="image/webp"
-    /> -->
+    />
     <link
+      fetchpriority="high"
+      rel="preload"
+      href="./stacey-roswells.webp"
+      id="profile-icon"
+      as="image"
+      type="image/webp"
+    />
+    <link
+      fetchpriority="high"
+      rel="preload"
+      href="./wknd-logo-dk.svg"
+      id="wknd-logo"
+      as="image"
+      type="image/svg"
+    />
+
+    <!-- <link
       fetchpriority="high"
       rel="preload"
       href="https://sparkle-data.vercel.app/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
       id="preload-biker"
       as="image"
       type="image/webp"
-    />
+    /> -->
 
     <script>
-      function attemptFetch(fetchConfig, variation, sparkleFetch = false) {
+      function attemptFetch(fetchConfig, variation, sparkleFetch = false, delay) {
         if (window[variation + "Data"]) {
           return;
         }
-        window[variation + "Data"] = new Promise((resolve, reject) => {
+        window[variation + "Data"] = new Promise(async (resolve, reject) => {
+          if (delay) {
+            await new Promise(resolve => setTimeout(resolve, delay))
+          }
           fetch(
             `${fetchConfig.authorUrl}/${fetchConfig.endpoint}${
               sparkleFetch ? `/${variation}.json` : `;variation=${variation}`
@@ -128,8 +148,13 @@
         fetchConfig.endpoint = endpoint;
       }
 
-      attemptFetch(fetchConfig, "desktop");
-      attemptFetch(fetchConfig, "mobile");
+      if (window.innerWidth <= 820) {
+        attemptFetch(fetchConfig, "mobile");
+        attemptFetch(fetchConfig, 'desktop', null, 5000)
+      } else {
+        attemptFetch(fetchConfig, "desktop");
+        attemptFetch(fetchConfig, 'mobile', null, 5000)
+      }
 
       // attemptFetch({ ...fetchConfig, authorUrl: fetchConfig.sparkle }, "desktop", true);
       // attemptFetch({ ...fetchConfig, authorUrl: fetchConfig.sparkle }, "mobile", true);
