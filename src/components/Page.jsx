@@ -27,6 +27,9 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
   };
 
   useEffect(() => {
+    if (desktopData?.panels?.length > 1) {
+      document.body.style.overflowY = "scroll";
+    }
     window.addEventListener("message", handleHashUpdateEvent);
     const searchParams = new URLSearchParams(window.location.search);
 
@@ -39,11 +42,25 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
       setForceView(forceViewQuery);
     }
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setLoadRest(true)
     }, 5000);
 
-    return () => window.removeEventListener("message", handleHashUpdateEvent);
+    const handleEarlyScroll = () => {
+      setLoadRest(true)
+      clearTimeout(timeout)
+      window.removeEventListener('wheel', handleEarlyScroll)
+      window.removeEventListener('touchmove', handleEarlyScroll)
+    }
+
+    window.addEventListener('wheel', handleEarlyScroll)
+    window.addEventListener('touchmove', handleEarlyScroll)
+
+    return () => {
+      window.removeEventListener("message", handleHashUpdateEvent)
+      window.removeEventListener('wheel', handleEarlyScroll)
+      window.removeEventListener('touchmove', handleEarlyScroll)
+    };
   }, []);
 
   // reset content on width change
@@ -108,7 +125,12 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
 
   return (
     data && (
-      <div className={"page"} style={viewType === "mobile" ? { maxWidth: 840, margin: "0 auto" } : null}>
+      <div className={"page"}
+        style={{
+          maxWidth: viewType === "mobile" ? 840 : 'unset',
+          margin: "0 auto",
+        }}
+      >
         <Helmet>
           <title>{data?.title || "Sparkle Demo"}</title>
           <meta name="description" content={data?.description?.plaintext} />
@@ -124,10 +146,6 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
         )}
         {data?.panels?.map &&
           data.panels.map((panel, index) => {
-            // if (viewType === "desktop" && index > 0 && !loadRest) {
-            //   document.body.style.overflowY = "scroll";
-            //   return null;
-            // }
             if (index !== 0 && !loadRest) {return}
             return (
               <Panel
