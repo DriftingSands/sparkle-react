@@ -154,7 +154,7 @@ export default function MobileHeader({ maxWidth, isAuthorVersion, host, mobileNa
         </div>
 
         <div className="bottom">
-          <a href={isAuthorVersion ? window.location.href : host} target="_blank" rel="noopener noreferrer">
+          <a href={isAuthorVersion ? "#" : host} target="_blank" rel="noopener noreferrer">
             <span>{isAuthorVersion ? "my account" : "login"}</span>
           </a>
 
