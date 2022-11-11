@@ -64,7 +64,7 @@
       href="./wknd-logo-dk.svg"
       id="wknd-logo"
       as="image"
-      type="image/svg"
+      type="image/svg+xml"
     />
 
     <!-- <link
@@ -77,6 +77,22 @@
     /> -->
 
     <script>
+      function fallbackFetch(fetchConfig, variation, resolve) {
+        fetch(`${fetchConfig.fallbackHost}/${fetchConfig.endpoint};variation=${variation}`)
+          .then((response) => {
+            return response.json()
+          })
+          .then((data) => {
+            window.customHost = fetchConfig.fallbackHost;
+            resolve(data);
+          })
+          .catch((error) => {
+            console.log('fallback host fetch failed')
+            resolve(null)
+          })
+      }
+
+
       function attemptFetch(fetchConfig, variation, sparkleFetch = false, delay) {
         if (window[variation + "Data"]) {
           return;
@@ -84,6 +100,10 @@
         window[variation + "Data"] = new Promise(async (resolve, reject) => {
           if (delay) {
             await new Promise(resolve => setTimeout(resolve, delay))
+          }
+          if (!fetchConfig.authorHost && !fetchConfig.publishHost) {
+            console.log('no author or publish host specified')
+            return fallbackFetch(fetchConfig, variation, resolve)
           }
           fetch(
             `${fetchConfig.authorUrl}/${fetchConfig.endpoint}${
@@ -109,16 +129,17 @@
                 })
                 .catch(error => {
                   console.log("Publish url also failed.");
-                  resolve(null);
+                  fallbackFetch(fetchConfig, variation, resolve)
                 });
             });
         });
       }
       const fetchConfig = {
         sparkle: "https://sparkle-data.vercel.app",
-        authorUrl: "https://author-p54352-e845472.adobeaemcloud.com",
+        // authorHost: "https://author-p54352-e845472.adobeaemcloud.com",
+        // publishHost: "https://publish-p54352-e845472.adobeaemcloud.com",
+        fallbackHost: "https://publish-p81252-e700817.adobeaemcloud.com",
         endpoint: "graphql/execute.json/sample-wknd-app/homepage",
-        publishUrl: "https://publish-p54352-e845472.adobeaemcloud.com",
       };
 
       const searchParams = new URLSearchParams(window.location.search);
@@ -126,13 +147,13 @@
       const author = searchParams.get("authorHost");
       if (author) {
         const authorUrl = new URL(author);
-        fetchConfig.authorUrl = `${authorUrl.protocol}//${authorUrl.host}${authorUrl.port ? ":" + authorUrl.port : ""}`;
+        fetchConfig.authorHost = `${authorUrl.protocol}//${authorUrl.host}${authorUrl.port ? ":" + authorUrl.port : ""}`;
       }
 
       const publish = searchParams.get("publishHost");
       if (publish) {
         const publishUrl = new URL(publish);
-        fetchConfig.publishUrl = `${publishUrl.protocol}//${publishUrl.host}${
+        fetchConfig.publishHost = `${publishUrl.protocol}//${publishUrl.host}${
           publishUrl.port ? ":" + publishUrl.port : ""
         }`;
       }
