@@ -1,7 +1,7 @@
 import { scrollToId } from "./utils";
 
 export default function Menu({ menuItems, activeMenuItem }) {
-  const onClickHandler = link => {
+  const onClickHandler = (link) => {
     if (link) {
       scrollToId(link);
     }
@@ -14,20 +14,17 @@ export default function Menu({ menuItems, activeMenuItem }) {
     <div className="menuWrapper">
       <ul className="menuList">
         {menuItems.map((item, index) => {
-          return (
-            <a
-              key={index}
-              href={!item.active ? (!item?.link?.startsWith("#") ? item.link : "#") : "#"}
-              onClick={() => onClickHandler(item?.link)}
-            >
+            return (
               <li
+                key={index}
+                onClick={() => onClickHandler(item?.link)}
                 className={`menuListItem ${activeMenuItem === item.menuItemId ? "active" : ""}`}
                 id={"menuItem-" + item.menuItemId}
               >
                 {item.text}
               </li>
-            </a>
-          );
+            )
+          
         })}
       </ul>
     </div>
