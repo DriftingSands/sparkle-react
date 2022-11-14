@@ -27,7 +27,7 @@ export default function Page({ desktopData, mobileData, isAuthorVersion, host })
   };
 
   useEffect(() => {
-    if (desktopData?.panels?.length > 1) {
+    if (desktopData?.panels?.length > 1 || mobileData?.panels?.length > 1) {
       document.body.style.overflowY = "scroll";
     }
     window.addEventListener("message", handleHashUpdateEvent);
