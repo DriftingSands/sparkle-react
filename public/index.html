@@ -8,10 +8,6 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <!-- <link rel="DNS-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
-
     <link rel="DNS-prefetch" href="https://use.typekit.net" />
     <link rel="preconnect" href="https://use.typekit.net" crossorigin />
     <link rel="DNS-prefetch" href="https://p.typekit.net" />
@@ -20,26 +16,15 @@
     <!-- other fonts <link rel="stylesheet" href="https://use.typekit.net/sev7aot.css" /> -->
 
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <!-- <link as="style" rel="preload" href="./fonts.css" > -->
 
     <link rel="preload" href="./Asar-Regular.ttf" as="font" type="font/woff2" crossorigin />
     <style type="text/css">
       @font-face {
         font-family: Asar;
-        font-display: swap;
+        font-display: fallback;
         src: url("./Asar-Regular.ttf");
       }
     </style>
-
-    <!-- <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap"
-    />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" /> -->
 
     <link
       fetchpriority="high"
@@ -58,14 +43,6 @@
       type="image/svg+xml"
     />
 
-    <!-- <link
-      fetchpriority="high"
-      rel="preload"
-      href="https://sparkle-data.vercel.app/content/dam/sample-wknd-app/en/image-files/biker_m.png/_jcr_content/renditions/mobile-vertical.webp"
-      id="preload-biker"
-      as="image"
-      type="image/webp"
-    /> -->
 
     <script id='testScript' type='module' src='/dataFetch.js' strategy='beforeInteractive' >
     </script>
